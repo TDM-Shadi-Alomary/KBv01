@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC Ltd - Multi-Location Knowledge Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+            background: #f8fafc;
+            line-height: 1.6;
+            color: #1e293b;
+        }
+        
+        /* Multi-Location Header */
+        .customer-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.05;
+            background-image: 
+                radial-gradient(circle at 20% 20%, #ffffff 2px, transparent 2px),
+                radial-gradient(circle at 60% 60%, #ffffff 1px, transparent 1px),
+                radial-gradient(circle at 80% 40%, #ffffff 1px, transparent 1px);
+            background-size: 60px 60px, 40px 40px, 80px 80px;
+        }
+        
+        .header-content {
+            position: relative;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 32px 24px;
+            z-index: 1;
+        }
+        
+        .breadcrumb {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .customer-overview {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 48px;
+            align-items: center;
+        }
+        
+        .customer-info h1 {
+            font-size: 42px;
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+        
+        .customer-tagline {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 24px;
+        }
+        
+        .customer-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 800px;
+        }
+        
+        .meta-card {
+            background: rgba(255,255,255,0.1);
+            padding: 16px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .meta-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .meta-value {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .meta-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .global-map {
+            width: 300px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            position: relative;
+        }
+        
+        .location-pins {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .location-pin {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+            animation: pulse 2s infinite;
+        }
+        
+        .pin-london { top: 30%; left: 50%; }
+        .pin-newyork { top: 40%; left: 25%; }
+        .pin-singapore { top: 70%; right: 20%; }
+        .pin-frankfurt { top: 35%; left: 55%; }
+        .pin-manchester { top: 25%; left: 48%; }
+        .pin-edinburgh { top: 20%; left: 47%; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+        
+        /* Main Container */
+        .main-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+        
+        /* Location Navigation */
+        .location-nav {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+        
+        .location-tabs {
+            display: flex;
+            background: #f8fafc;
+            overflow-x: auto;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .location-tab {
+            padding: 16px 24px;
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+        
+        .location-tab.active {
+            color: #3b82f6;
+            background: white;
+        }
+        
+        .location-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #3b82f6;
+        }
+        
+        .location-tab:hover:not(.active) {
+            color: #1e293b;
+            background: #f1f5f9;
+        }
+        
+        .tab-flag {
+            font-size: 16px;
+        }
+        
+        .tab-status {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10b981;
+            margin-left: 8px;
+        }
+        
+        .tab-status.warning { background: #f59e0b; }
+        .tab-status.error { background: #ef4444; }
+        
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 32px;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        /* Knowledge Cards */
+        .knowledge-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .knowledge-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-1px);
+        }
+        
+        .card-header {
+            padding: 24px 32px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .card-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .card-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .card-btn {
+            padding: 8px 16px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .card-btn:hover {
+            background: #e2e8f0;
+        }
+        
+        .card-btn-primary {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        .card-btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .card-content {
+            padding: 32px;
+        }
+        
+        /* Location Infrastructure Grid */
+        .location-infrastructure {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .infra-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .infra-item:hover {
+            border-color: #3b82f6;
+            background: white;
+            transform: translateY(-1px);
+        }
+        
+        .infra-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .infra-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .infra-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+        }
+        
+        .infra-status.warning { background: #f59e0b; }
+        .infra-status.error { background: #ef4444; }
+        
+        .infra-details {
+            display: grid;
+            gap: 8px;
+            font-size: 13px;
+            color: #64748b;
+        }
+        
+        .infra-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .infra-value {
+            color: #1e293b;
+            font-weight: 500;
+        }
+        
+        /* Knowledge Base Articles */
+        .kb-article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .kb-article {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .kb-article:hover {
+            border-color: #3b82f6;
+            background: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+        }
+        
+        .kb-article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .kb-article-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #3b82f6;
+            margin-bottom: 6px;
+        }
+        
+        .kb-article-meta {
+            font-size: 12px;
+            color: #64748b;
+        }
+        
+        .kb-article-actions {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .kb-action-btn {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 11px;
+        }
+        
+        .kb-action-btn:hover {
+            background: #cbd5e1;
+            transform: scale(1.1);
+        }
+        
+        .kb-article-description {
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .kb-article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .kb-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        
+        .kb-tag {
+            font-size: 10px;
+            padding: 3px 8px;
+            background: #e2e8f0;
+            color: #475569;
+            border-radius: 8px;
+        }
+        
+        .kb-stats {
+            font-size: 12px;
+            color: #64748b;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        /* Location Status Card */
+        .location-status {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .status-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 30% 70%, #ffffff 2px, transparent 2px);
+            background-size: 25px 25px;
+        }
+        
+        .status-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .status-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .status-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .status-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .status-metric {
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        /* AI Knowledge Assistant */
+        .ai-assistant {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ai-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 20% 80%, #ffffff 1px, transparent 1px),
+                radial-gradient(circle at 80% 20%, #ffffff 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .ai-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .ai-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .ai-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .ai-suggestions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .ai-suggestion {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .suggestion-title {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .suggestion-text {
+            font-size: 11px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .ai-chat-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .ai-chat-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* Contact Information */
+        .contact-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .contact-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .contact-avatar {
+            width: 40px;
+            height: 40px;
+            background: #3b82f6;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .contact-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .contact-role {
+            font-size: 12px;
+            color: #64748b;
+        }
+        
+        .contact-details {
+            display: grid;
+            gap: 8px;
+            font-size: 13px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #475569;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            min-height: 600px;
+        }
+        
+        .tab-panel {
+            display: none;
+        }
+        
+        .tab-panel.active {
+            display: block;
+        }
+        
+        /* Search Bar */
+        .location-search {
+            padding: 20px 32px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .search-container {
+            position: relative;
+            max-width: 600px;
+        }
+        
+        .search-input {
+            width: 100%;
+            height: 44px;
+            border: 1px solid #e2e8f0;
+            border-radius: 22px;
+            padding: 0 50px 0 20px;
+            font-size: 14px;
+            background: white;
+            transition: all 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            background: #3b82f6;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                grid-template-columns: repeat(2, 1fr);
+                display: grid;
+                gap: 24px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .customer-overview {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                text-align: center;
+            }
+            
+            .customer-meta {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .location-infrastructure {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 16px;
+            }
+            
+            .customer-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            .location-tabs {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Multi-Location Customer Header -->
+    <header class="customer-header">
+        <div class="header-pattern"></div>
+        <div class="header-content">
+            <div class="breadcrumb">
+                <a href="#">🏠 Knowledge Hub</a> > <a href="#">Customers</a> > <strong>ABC Ltd</strong>
+            </div>
+            <div class="customer-overview">
+                <div class="customer-info">
+                    <h1>ABC Ltd</h1>
+                    <p class="customer-tagline">Global Financial Services • Multi-Location Knowledge Management</p>
+                    <div class="customer-meta">
+                        <div class="meta-card">
+                            <span class="meta-icon">🌍</span>
+                            <div class="meta-value">6</div>
+                            <div class="meta-label">Global Offices</div>
+                        </div>
+                        <div class="meta-card">
+                            <span class="meta-icon">👥</span>
+                            <div class="meta-value">450</div>
+                            <div class="meta-label">Total Users</div>
+                        </div>
+                        <div class="meta-card">
+                            <span class="meta-icon">📚</span>
+                            <div class="meta-value">247</div>
+                            <div class="meta-label">KB Articles</div>
+                        </div>
+                        <div class="meta-card">
+                            <span class="meta-icon">🔧</span>
+                            <div class="meta-value">24</div>
+                            <div class="meta-label">Service Types</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="global-map">
+                    🗺️
+                    <div class="location-pins">
+                        <div class="location-pin pin-london" title="London HQ"></div>
+                        <div class="location-pin pin-manchester" title="Manchester"></div>
+                        <div class="location-pin pin-edinburgh" title="Edinburgh"></div>
+                        <div class="location-pin pin-newyork" title="New York"></div>
+                        <div class="location-pin pin-singapore" title="Singapore"></div>
+                        <div class="location-pin pin-frankfurt" title="Frankfurt"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Location Navigation -->
+        <div class="location-nav">
+            <div class="location-tabs">
+                <button class="location-tab active" data-location="overview">
+                    <span>🌍</span>
+                    <span>Global Overview</span>
+                </button>
+                <button class="location-tab" data-location="london">
+                    <span class="tab-flag">🇬🇧</span>
+                    <span>London HQ</span>
+                    <span class="tab-status"></span>
+                </button>
+                <button class="location-tab" data-location="manchester">
+                    <span class="tab-flag">🇬🇧</span>
+                    <span>Manchester</span>
+                    <span class="tab-status"></span>
+                </button>
+                <button class="location-tab" data-location="edinburgh">
+                    <span class="tab-flag">🇬🇧</span>
+                    <span>Edinburgh</span>
+                    <span class="tab-status"></span>
+                </button>
+                <button class="location-tab" data-location="newyork">
+                    <span class="tab-flag">🇺🇸</span>
+                    <span>New York</span>
+                    <span class="tab-status warning"></span>
+                </button>
+                <button class="location-tab" data-location="singapore">
+                    <span class="tab-flag">🇸🇬</span>
+                    <span>Singapore</span>
+                    <span class="tab-status"></span>
+                </button>
+                <button class="location-tab" data-location="frankfurt">
+                    <span class="tab-flag">🇩🇪</span>
+                    <span>Frankfurt</span>
+                    <span class="tab-status"></span>
+                </button>
+            </div>
+            
+            <div class="location-search">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search knowledge base for this location...">
+                    <button class="search-btn">🔍</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="main-content">
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- Global Overview Tab -->
+                    <div class="tab-panel active" id="overview">
+                        <!-- Location Infrastructure Overview -->
+                        <div class="knowledge-card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <span class="card-icon">🏗️</span>
+                                    <span>Global Infrastructure Overview</span>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="card-btn">Network Topology</button>
+                                    <button class="card-btn card-btn-primary">Sync Status</button>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="location-infrastructure">
+                                    <div class="infra-item">
+                                        <div class="infra-header">
+                                            <div class="infra-name">🇬🇧 London HQ</div>
+                                            <div class="infra-status"></div>
+                                        </div>
+                                        <div class="infra-details">
+                                            <div class="infra-detail">
+                                                <span>Primary DC</span>
+                                                <span class="infra-value">Active</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>Users</span>
+                                                <span class="infra-value">180</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>Services</span>
+                                                <span class="infra-value">AD, Exchange, File Server</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>KB Articles</span>
+                                                <span class="infra-value">89 articles</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="infra-item">
+                                        <div class="infra-header">
+                                            <div class="infra-name">🇺🇸 New York</div>
+                                            <div class="infra-status warning"></div>
+                                        </div>
+                                        <div class="infra-details">
+                                            <div class="infra-detail">
+                                                <span>Branch Office</span>
+                                                <span class="infra-value">VPN Issues</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>Users</span>
+                                                <span class="infra-value">95</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>Services</span>
+                                                <span class="infra-value">Local AD, Cloud Apps</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>KB Articles</span>
+                                                <span class="infra-value">45 articles</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="infra-item">
+                                        <div class="infra-header">
+                                            <div class="infra-name">🇸🇬 Singapore</div>
+                                            <div class="infra-status"></div>
+                                        </div>
+                                        <div class="infra-details">
+                                            <div class="infra-detail">
+                                                <span>Regional Hub</span>
+                                                <span class="infra-value">Active</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>Users</span>
+                                                <span class="infra-value">85</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>Services</span>
+                                                <span class="infra-value">Local DC, Backup Site</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>KB Articles</span>
+                                                <span class="infra-value">67 articles</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="infra-item">
+                                        <div class="infra-header">
+                                            <div class="infra-name">🇩🇪 Frankfurt</div>
+                                            <div class="infra-status"></div>
+                                        </div>
+                                        <div class="infra-details">
+                                            <div class="infra-detail">
+                                                <span>EU Compliance Center</span>
+                                                <span class="infra-value">Active</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>Users</span>
+                                                <span class="infra-value">45</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>Services</span>
+                                                <span class="infra-value">GDPR Systems</span>
+                                            </div>
+                                            <div class="infra-detail">
+                                                <span>KB Articles</span>
+                                                <span class="infra-value">32 articles</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Global Knowledge Base -->
+                        <div class="knowledge-card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <span class="card-icon">📚</span>
+                                    <span>Multi-Location Knowledge Base</span>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="card-btn">Filter by Location</button>
+                                    <button class="card-btn card-btn-primary">Create Global Article</button>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="kb-article-list">
+                                    <div class="kb-article">
+                                        <div class="kb-article-header">
+                                            <div>
+                                                <div class="kb-article-title">Global VPN Configuration Standard</div>
+                                                <div class="kb-article-meta">Applies to: All Locations • Updated Dec 12, 2024 • Sarah Johnson</div>
+                                            </div>
+                                            <div class="kb-article-actions">
+                                                <button class="kb-action-btn" title="View">👁️</button>
+                                                <button class="kb-action-btn" title="Edit">✏️</button>
+                                                <button class="kb-action-btn" title="Localize">🌍</button>
+                                                <button class="kb-action-btn" title="Share">📤</button>
+                                            </div>
+                                        </div>
+                                        <div class="kb-article-description">
+                                            Standardized VPN configuration procedures across all ABC Ltd global offices, including site-specific network ranges and authentication methods.
+                                        </div>
+                                        <div class="kb-article-footer">
+                                            <div class="kb-tags">
+                                                <span class="kb-tag">Global</span>
+                                                <span class="kb-tag">VPN</span>
+                                                <span class="kb-tag">Security</span>
+                                                <span class="kb-tag">Network</span>
+                                            </div>
+                                            <div class="kb-stats">247 views • Used in 6 locations</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="kb-article">
+                                        <div class="kb-article-header">
+                                            <div>
+                                                <div class="kb-article-title">Regional Compliance Requirements - EU</div>
+                                                <div class="kb-article-meta">Applies to: London, Frankfurt • Updated Dec 10, 2024 • Alex Brown</div>
+                                            </div>
+                                            <div class="kb-article-actions">
+                                                <button class="kb-action-btn" title="View">👁️</button>
+                                                <button class="kb-action-btn" title="Compliance Check">✅</button>
+                                                <button class="kb-action-btn" title="Translate">🌍</button>
+                                                <button class="kb-action-btn" title="Audit">📋</button>
+                                            </div>
+                                        </div>
+                                        <div class="kb-article-description">
+                                            GDPR compliance procedures, data handling protocols, and regulatory requirements specific to European operations.
+                                        </div>
+                                        <div class="kb-article-footer">
+                                            <div class="kb-tags">
+                                                <span class="kb-tag">EU Only</span>
+                                                <span class="kb-tag">GDPR</span>
+                                                <span class="kb-tag">Compliance</span>
+                                                <span class="kb-tag">Legal</span>
+                                            </div>
+                                            <div class="kb-stats">156 views • Critical for EU operations</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="kb-article">
+                                        <div class="kb-article-header">
+                                            <div>
+                                                <div class="kb-article-title">Time Zone Coordination Procedures</div>
+                                                <div class="kb-article-meta">Applies to: All Locations • Updated Dec 8, 2024 • Mike Chen</div>
+                                            </div>
+                                            <div class="kb-article-actions">
+                                                <button class="kb-action-btn" title="View">👁️</button>
+                                                <button class="kb-action-btn" title="Schedule">📅</button>
+                                                <button class="kb-action-btn" title="Time Calculator">🕒</button>
+                                                <button class="kb-action-btn" title="Update">🔄</button>
+                                            </div>
+                                        </div>
+                                        <div class="kb-article-description">
+                                            Best practices for coordinating maintenance windows, meetings, and support coverage across global time zones.
+                                        </div>
+                                        <div class="kb-article-footer">
+                                            <div class="kb-tags">
+                                                <span class="kb-tag">Global</span>
+                                                <span class="kb-tag">Operations</span>
+                                                <span class="kb-tag">Scheduling</span>
+                                                <span class="kb-tag">Support</span>
+                                            </div>
+                                            <div class="kb-stats">89 views • Essential for global ops</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Individual location tabs would be dynamically populated -->
+                    <div class="tab-panel" id="london">
+                        <div class="knowledge-card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <span class="card-icon">🇬🇧</span>
+                                    <span>London HQ - Headquarters Operations</span>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <p>London-specific knowledge base content would be loaded here...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Current Location Status -->
+                <div class="location-status">
+                    <div class="status-pattern"></div>
+                    <div class="status-content">
+                        <div class="status-header">
+                            <div class="status-icon">🌍</div>
+                            <div class="status-title">Global Status Overview</div>
+                        </div>
+                        <div class="status-metrics">
+                            <div class="status-metric">
+                                <div class="metric-value">5/6</div>
+                                <div class="metric-label">Locations Online</div>
+                            </div>
+                            <div class="status-metric">
+                                <div class="metric-value">98.7%</div>
+                                <div class="metric-label">Global SLA</div>
+                            </div>
+                            <div class="status-metric">
+                                <div class="metric-value">247</div>
+                                <div class="metric-label">Total KB Articles</div>
+                            </div>
+                            <div class="status-metric">
+                                <div class="metric-value">23</div>
+                                <div class="metric-label">Multi-Location Docs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Knowledge Assistant -->
+                <div class="ai-assistant">
+                    <div class="ai-pattern"></div>
+                    <div class="ai-content">
+                        <div class="ai-header">
+                            <div class="ai-icon">🤖</div>
+                            <div class="ai-title">Location Intelligence</div>
+                        </div>
+                        <div class="ai-suggestions">
+                            <div class="ai-suggestion">
+                                <div class="suggestion-title">🚨 Alert: New York VPN</div>
+                                <div class="suggestion-text">VPN connectivity issues detected. Suggest checking London-NYC tunnel configuration in KB article #ABC-VPN-247.</div>
+                            </div>
+                            <div class="ai-suggestion">
+                                <div class="suggestion-title">💡 Optimization</div>
+                                <div class="suggestion-text">Singapore office accessing London KB articles frequently. Consider creating local copies of top 10 procedures.</div>
+                            </div>
+                            <div class="ai-suggestion">
+                                <div class="suggestion-title">📚 Content Gap</div>
+                                <div class="suggestion-text">Frankfurt office missing German translations for 5 critical compliance documents.</div>
+                            </div>
+                        </div>
+                        <button class="ai-chat-btn">💬 Ask Location AI</button>
+                    </div>
+                </div>
+
+                <!-- Primary Contacts -->
+                <div class="knowledge-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">👥</span>
+                            <span>Global Contacts</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="contact-card">
+                            <div class="contact-header">
+                                <div class="contact-avatar">DW</div>
+                                <div>
+                                    <div class="contact-info">
+                                        <h3>David Wilson</h3>
+                                        <div class="contact-role">Global CTO</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-details">
+                                <div class="contact-item">
+                                    <span class="contact-icon">📧</span>
+                                    <span>david.wilson@abcltd.com</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-icon">📞</span>
+                                    <span>+44 20 7123 8901</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-icon">🏢</span>
+                                    <span>London HQ</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card" style="margin-top: 16px;">
+                            <div class="contact-header">
+                                <div class="contact-avatar">LC</div>
+                                <div>
+                                    <div class="contact-info">
+                                        <h3>Lisa Chen</h3>
+                                        <div class="contact-role">IT Operations Manager</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-details">
+                                <div class="contact-item">
+                                    <span class="contact-icon">📧</span>
+                                    <span>lisa.chen@abcltd.com</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-icon">📞</span>
+                                    <span>+65 6789 0123</span>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-icon">🏢</span>
+                                    <span>Singapore Hub</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Location tab navigation
+            const locationTabs = document.querySelectorAll('.location-tab');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            locationTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetLocation = this.getAttribute('data-location');
+                    
+                    // Remove active class from all tabs and panels
+                    locationTabs.forEach(t => t.classList.remove('active'));
+                    tabPanels.forEach(panel => panel.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding panel or overview
+                    const targetPanel = document.getElementById(targetLocation);
+                    if (targetPanel) {
+                        targetPanel.classList.add('active');
+                    } else {
+                        // For locations without specific panels, show overview
+                        document.getElementById('overview').classList.add('active');
+                        loadLocationContent(targetLocation);
+                    }
+                });
+            });
+
+            // Knowledge base search
+            const searchInput = document.querySelector('.search-input');
+            const searchBtn = document.querySelector('.search-btn');
+            
+            function performLocationSearch() {
+                const query = searchInput.value;
+                const activeLocation = document.querySelector('.location-tab.active').getAttribute('data-location');
+                console.log(`Searching in ${activeLocation}:`, query);
+                // Implementation would filter KB articles by location and query
+            }
+            
+            searchBtn.addEventListener('click', performLocationSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performLocationSearch();
+                }
+            });
+
+            // KB article actions
+            const kbActionButtons = document.querySelectorAll('.kb-action-btn');
+            kbActionButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const action = this.getAttribute('title');
+                    const article = this.closest('.kb-article');
+                    handleKBAction(action, article);
+                });
+            });
+
+            // Infrastructure item interactions
+            const infraItems = document.querySelectorAll('.infra-item');
+            infraItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const locationName = this.querySelector('.infra-name').textContent;
+                    openLocationDetails(locationName);
+                });
+            });
+
+            // AI Assistant
+            const aiChatBtn = document.querySelector('.ai-chat-btn');
+            if (aiChatBtn) {
+                aiChatBtn.addEventListener('click', function() {
+                    openLocationAI();
+                });
+            }
+        });
+
+        function loadLocationContent(location) {
+            console.log('Loading content for location:', location);
+            // Implementation would dynamically load location-specific KB articles,
+            // infrastructure details, and local procedures
+        }
+
+        function handleKBAction(action, article) {
+            const title = article.querySelector('.kb-article-title').textContent;
+            console.log('KB Action:', action, 'Article:', title);
+            
+            switch(action) {
+                case 'Localize':
+                    console.log('Creating location-specific version of:', title);
+                    break;
+                case 'Translate':
+                    console.log('Translating article for local language requirements');
+                    break;
+                case 'Compliance Check':
+                    console.log('Running compliance audit for:', title);
+                    break;
+                default:
+                    console.log('Standard KB action:', action);
+            }
+        }
+
+        function openLocationDetails(locationName) {
+            console.log('Opening detailed view for:', locationName);
+            // Implementation would show detailed infrastructure,
+            // user lists, and location-specific configurations
+        }
+
+        function openLocationAI() {
+            alert('Location Intelligence AI:\n\n"I can help you with:\n\n• Finding location-specific documentation\n• Identifying content gaps across offices\n• Suggesting regional optimizations\n• Translating content for local requirements\n• Analyzing cross-location patterns\n• Planning global rollouts\n\nWhat location challenge can I help solve?"');
+        }
+
+        // Simulate real-time status updates
+        setInterval(function() {
+            // Update location status indicators
+            const statusIndicators = document.querySelectorAll('.tab-status, .infra-status');
+            statusIndicators.forEach(indicator => {
+                // Randomly simulate status changes (in real implementation, 
+                // this would come from actual monitoring data)
+                const randomStatus = Math.random();
+                if (randomStatus > 0.95) {
+                    indicator.className = indicator.className.replace(/warning|error/g, '') + ' error';
+                } else if (randomStatus > 0.9) {
+                    indicator.className = indicator.className.replace(/warning|error/g, '') + ' warning';
+                } else {
+                    indicator.className = indicator.className.replace(/warning|error/g, '');
+                }
+            });
+        }, 30000); // Update every 30 seconds
+    </script>
+</body>
+</html>

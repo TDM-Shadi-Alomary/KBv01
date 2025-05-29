@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDM Knowledge Hub - Engineer Dashboard</title>
+    <link rel="stylesheet" href="homepage.css">
+</head>
+<body>
+    <div class="notification-center" id="notificationCenter"></div>
+    <!-- Knowledge-Focused Header -->
+    <header class="knowledge-header">
+        <div class="header-content">
+            <div class="header-top">
+                <div class="logo-section">
+                    <div class="logo-icon">📚</div>
+                    <div class="brand-text">
+                        <h1>TDM Knowledge Hub</h1>
+                        <p>Intelligent Knowledge Base & Documentation System</p>
+                    </div>
+                </div>
+                
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">2,847</div>
+                        <div class="stat-label">KB Articles</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">156</div>
+                        <div class="stat-label">Customers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">847</div>
+                        <div class="stat-label">Locations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98.2%</div>
+                        <div class="stat-label">Accuracy Rate</div>
+                    </div>
+                </div>
+                
+                <div class="user-section">
+                    <button id="darkModeToggle" class="theme-toggle">
+                        <span class="light-icon">☀️</span>
+                        <span class="dark-icon">🌙</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar">JS</div>
+                        <div>
+                            <div style="font-weight: 600;">John Smith</div>
+                            <div style="font-size: 12px; opacity: 0.8;">Knowledge Engineer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Advanced Knowledge Search -->
+            <div class="knowledge-search">
+                <div class="search-container">
+                    <div class="main-search">
+                        <input type="text" class="search-input" placeholder="Search knowledge base, procedures, configurations across all customers and locations...">
+                        <div class="search-icon">🔍</div>
+                    </div>
+                    <div class="search-filters">
+                        <select class="filter-select">
+                            <option>All Customers</option>
+                            <option>ABC Ltd</option>
+                            <option>XYZ Corp</option>
+                            <option>EFG Solutions</option>
+                        </select>
+                        <select class="filter-select">
+                            <option>All Locations</option>
+                            <option>UK Offices</option>
+                            <option>European Sites</option>
+                            <option>Global Offices</option>
+                        </select>
+                        <select class="filter-select">
+                            <option>All Categories</option>
+                            <option>Infrastructure</option>
+                            <option>Procedures</option>
+                            <option>Configurations</option>
+                        </select>
+                        <button class="ai-search-btn">
+                            🤖 AI Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Knowledge Base Statistics -->
+        <div class="knowledge-stats">
+            <div class="kb-stat-card">
+                <div class="kb-stat-value">47</div>
+                <div class="kb-stat-label">Articles Created This Week</div>
+                <div class="kb-stat-change positive">↗ +18% from last week</div>
+            </div>
+            <div class="kb-stat-card">
+                <div class="kb-stat-value">1,239</div>
+                <div class="kb-stat-label">Knowledge Base Searches Today</div>
+                <div class="kb-stat-change positive">↗ +12% from yesterday</div>
+            </div>
+            <div class="kb-stat-card">
+                <div class="kb-stat-value">892</div>
+                <div class="kb-stat-label">Multi-Location Articles</div>
+                <div class="kb-stat-change neutral">→ Stable</div>
+            </div>
+            <div class="kb-stat-card">
+                <div class="kb-stat-value">23</div>
+                <div class="kb-stat-label">Pending Reviews</div>
+                <div class="kb-stat-change negative">↗ +5 since yesterday</div>
+            </div>
+            <div class="kb-stat-card">
+                <div class="kb-stat-value">4.8/5</div>
+                <div class="kb-stat-label">Article Usefulness Rating</div>
+                <div class="kb-stat-change positive">↗ +0.2 this month</div>
+            </div>
+        </div>
+
+        <!-- Quick Stats & Insights -->
+        <div class="kb-card">
+            <div class="kb-card-header">
+                <div class="kb-card-title">
+                    <span class="kb-card-icon">📊</span>
+                    <span>Quick Stats & Insights</span>
+                </div>
+                <div class="kb-card-actions">
+                    <button class="kb-btn">Export Report</button>
+                    <button class="kb-btn kb-btn-primary">View Analytics</button>
+                </div>
+            </div>
+            <div class="kb-card-content">
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-header">
+                            <span class="insight-icon">🔥</span>
+                            <span class="insight-title">Trending Topics</span>
+                        </div>
+                        <div class="insight-list">
+                            <div class="insight-item">
+                                <div class="trend-indicator positive">↑</div>
+                                <div class="insight-content">
+                                    <div class="insight-name">VPN Configuration</div>
+                                    <div class="insight-meta">+45% this week</div>
+                                </div>
+                            </div>
+                            <div class="insight-item">
+                                <div class="trend-indicator positive">↑</div>
+                                <div class="insight-content">
+                                    <div class="insight-name">Office 365 Setup</div>
+                                    <div class="insight-meta">+32% this week</div>
+                                </div>
+                            </div>
+                            <div class="insight-item">
+                                <div class="trend-indicator negative">↓</div>
+                                <div class="insight-content">
+                                    <div class="insight-name">Printer Setup</div>
+                                    <div class="insight-meta">-12% this week</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <div class="insight-header">
+                            <span class="insight-icon">🔍</span>
+                            <span class="insight-title">Popular Searches</span>
+                        </div>
+                        <div class="insight-list">
+                            <div class="insight-item">
+                                <div class="search-rank">1</div>
+                                <div class="insight-content">
+                                    <div class="insight-name">Password Reset</div>
+                                    <div class="insight-meta">1,234 searches</div>
+                                </div>
+                            </div>
+                            <div class="insight-item">
+                                <div class="search-rank">2</div>
+                                <div class="insight-content">
+                                    <div class="insight-name">Email Setup</div>
+                                    <div class="insight-meta">987 searches</div>
+                                </div>
+                            </div>
+                            <div class="insight-item">
+                                <div class="search-rank">3</div>
+                                <div class="insight-content">
+                                    <div class="insight-name">VPN Access</div>
+                                    <div class="insight-meta">876 searches</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <div class="insight-header">
+                            <span class="insight-icon">📈</span>
+                            <span class="insight-title">Performance Metrics</span>
+                        </div>
+                        <div class="insight-list">
+                            <div class="insight-item">
+                                <div class="metric-value">98.5%</div>
+                                <div class="insight-content">
+                                    <div class="insight-name">Search Success Rate</div>
+                                    <div class="insight-meta">Last 30 days</div>
+                                </div>
+                            </div>
+                            <div class="insight-item">
+                                <div class="metric-value">2.3s</div>
+                                <div class="insight-content">
+                                    <div class="insight-name">Avg. Response Time</div>
+                                    <div class="insight-meta">Last 30 days</div>
+                                </div>
+                            </div>
+                            <div class="insight-item">
+                                <div class="metric-value">4.8/5</div>
+                                <div class="insight-content">
+                                    <div class="insight-name">User Satisfaction</div>
+                                    <div class="insight-meta">Last 30 days</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity (moved to main content) -->
+        <div class="kb-card" id="recent-activity-main">
+            <div class="kb-card-header">
+                <div class="kb-card-title">
+                    <span class="kb-card-icon">🕒</span>
+                    <span>Recent Activity</span>
+                </div>
+                <div class="kb-card-actions">
+                    <button class="kb-btn">View All</button>
+                </div>
+            </div>
+            <div class="kb-card-content">
+                <div class="activity-feed main-activity-feed">
+                    <!-- Activity items will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Knowledge Analytics (Tabbed) -->
+        <div class="kb-card" id="knowledge-analytics-main">
+            <div class="kb-card-header">
+                <div class="kb-card-title">
+                    <span class="kb-card-icon">📊</span>
+                    <span>Knowledge Analytics</span>
+                </div>
+                <div class="kb-card-actions">
+                    <button class="kb-btn">Export Data</button>
+                    <button class="kb-btn kb-btn-primary">View Full Report</button>
+                </div>
+            </div>
+            <div class="kb-card-content">
+                <div class="analytics-tabs">
+                    <button class="analytics-tab active" data-tab="trends">Usage Trends</button>
+                    <button class="analytics-tab" data-tab="performance">Search Performance</button>
+                    <button class="analytics-tab" data-tab="health">Content Health</button>
+                </div>
+                <div class="analytics-panel analytics-trends active">
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <div class="analytics-header">
+                                <span class="analytics-icon">📈</span>
+                                <span class="analytics-title">Usage Trends</span>
+                            </div>
+                            <div class="analytics-chart">
+                                <div class="chart-bar" style="height: 60%">
+                                    <span class="chart-label">Mon</span>
+                                    <span class="chart-value">1.2k</span>
+                                </div>
+                                <div class="chart-bar" style="height: 75%">
+                                    <span class="chart-label">Tue</span>
+                                    <span class="chart-value">1.5k</span>
+                                </div>
+                                <div class="chart-bar" style="height: 90%">
+                                    <span class="chart-label">Wed</span>
+                                    <span class="chart-value">1.8k</span>
+                                </div>
+                                <div class="chart-bar" style="height: 85%">
+                                    <span class="chart-label">Thu</span>
+                                    <span class="chart-value">1.7k</span>
+                                </div>
+                                <div class="chart-bar" style="height: 70%">
+                                    <span class="chart-label">Fri</span>
+                                    <span class="chart-value">1.4k</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="analytics-panel analytics-performance">
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <div class="analytics-header">
+                                <span class="analytics-icon">🎯</span>
+                                <span class="analytics-title">Search Performance</span>
+                            </div>
+                            <div class="analytics-metrics">
+                                <div class="metric-item">
+                                    <div class="metric-value">98.5%</div>
+                                    <div class="metric-label">Success Rate</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">2.3s</div>
+                                    <div class="metric-label">Avg. Response</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div class="metric-value">4.8/5</div>
+                                    <div class="metric-label">User Rating</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="analytics-panel analytics-health">
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <div class="analytics-header">
+                                <span class="analytics-icon">📚</span>
+                                <span class="analytics-title">Content Health</span>
+                            </div>
+                            <div class="health-indicators">
+                                <div class="health-item">
+                                    <div class="health-label">Up-to-date</div>
+                                    <div class="health-bar">
+                                        <div class="health-progress" style="width: 85%"></div>
+                                    </div>
+                                    <div class="health-value">85%</div>
+                                </div>
+                                <div class="health-item">
+                                    <div class="health-label">Reviewed</div>
+                                    <div class="health-bar">
+                                        <div class="health-progress" style="width: 92%"></div>
+                                    </div>
+                                    <div class="health-value">92%</div>
+                                </div>
+                                <div class="health-item">
+                                    <div class="health-label">Verified</div>
+                                    <div class="health-bar">
+                                        <div class="health-progress" style="width: 78%"></div>
+                                    </div>
+                                    <div class="health-value">78%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-layout">
+            <div class="primary-content">
+                <!-- Multi-Location Customer Overview -->
+                <div class="kb-card">
+                    <div class="kb-card-header">
+                        <div class="kb-card-title">
+                            <span class="kb-card-icon">🌍</span>
+                            <span>Multi-Location Customer Knowledge</span>
+                        </div>
+                        <div class="kb-card-actions">
+                            <button class="kb-btn">View Map</button>
+                            <button class="kb-btn kb-btn-primary">Add Customer</button>
+                        </div>
+                    </div>
+                    <div class="kb-card-content">
+                        <div class="customer-grid">
+                            <div class="customer-card">
+                                <div class="customer-header">
+                                    <div class="customer-name">ABC Ltd</div>
+                                    <div class="customer-type">Enterprise</div>
+                                </div>
+                                <div class="customer-locations">
+                                    <div class="locations-title">Global Presence</div>
+                                    <div class="location-list">
+                                        <div class="location-tag">🇬🇧 London HQ</div>
+                                        <div class="location-tag">🇬🇧 Manchester</div>
+                                        <div class="location-tag">🇬🇧 Edinburgh</div>
+                                        <div class="location-tag">🇺🇸 New York</div>
+                                        <div class="location-tag">🇩🇪 Frankfurt</div>
+                                        <div class="location-tag">🇸🇬 Singapore</div>
+                                    </div>
+                                </div>
+                                <div class="customer-stats">
+                                    <div class="customer-stat">
+                                        <div class="customer-stat-value">247</div>
+                                        <div class="customer-stat-label">KB Articles</div>
+                                    </div>
+                                    <div class="customer-stat">
+                                        <div class="customer-stat-value">6</div>
+                                        <div class="customer-stat-label">Locations</div>
+                                    </div>
+                                    <div class="customer-stat">
+                                        <div class="customer-stat-value">450</div>
+                                        <div class="customer-stat-label">Users</div>
+                                    </div>
+                                </div>
+                                <div class="customer-actions customer-actions-main">
+                                    <button class="customer-btn" onclick="toggleCustomerDetails('abc')">📍 View Locations</button>
+                                    <button class="customer-btn">View Portal</button>
+                                    <button class="customer-btn">KB Articles</button>
+                                </div>
+                                <div class="customer-actions customer-actions-secondary">
+                                    <button class="customer-btn">✏️ Quick Edit</button>
+                                    <button class="customer-btn">📤 Share</button>
+                                </div>
+                            </div>
+                            
+                            <div class="customer-card">
+                                <div class="customer-header">
+                                    <div class="customer-name">XYZ Corp</div>
+                                    <div class="customer-type">Business</div>
+                                </div>
+                                <div class="customer-locations">
+                                    <div class="locations-title">UK Operations</div>
+                                    <div class="location-list">
+                                        <div class="location-tag">🇬🇧 Birmingham</div>
+                                        <div class="location-tag">🇬🇧 Leeds</div>
+                                        <div class="location-tag">🇬🇧 Bristol</div>
+                                        <div class="location-tag">🇮🇪 Dublin</div>
+                                    </div>
+                                </div>
+                                <div class="customer-stats">
+                                    <div class="customer-stat">
+                                        <div class="customer-stat-value">89</div>
+                                        <div class="customer-stat-label">KB Articles</div>
+                                    </div>
+                                    <div class="customer-stat">
+                                        <div class="customer-stat-value">4</div>
+                                        <div class="customer-stat-label">Locations</div>
+                                    </div>
+                                    <div class="customer-stat">
+                                        <div class="customer-stat-value">180</div>
+                                        <div class="customer-stat-label">Users</div>
+                                    </div>
+                                </div>
+                                <div class="customer-actions customer-actions-main">
+                                    <button class="customer-btn" onclick="toggleCustomerDetails('xyz')">📍 View Locations</button>
+                                    <button class="customer-btn">View Portal</button>
+                                    <button class="customer-btn">KB Articles</button>
+                                </div>
+                                <div class="customer-actions customer-actions-secondary">
+                                    <button class="customer-btn">✏️ Quick Edit</button>
+                                    <button class="customer-btn">📤 Share</button>
+                                </div>
+                            </div>
+                            
+                            <div class="customer-card">
+                                <div class="customer-header">
+                                    <div class="customer-name">EFG Solutions</div>
+                                    <div class="customer-type">Enterprise</div>
+                                </div>
+                                <div class="customer-locations">
+                                    <div class="locations-title">European Network</div>
+                                    <div class="location-list">
+                                        <div class="location-tag">🇬🇧 London</div>
+                                        <div class="location-tag">🇫🇷 Paris</div>
+                                        <div class="location-tag">🇩🇪 Munich</div>
+                                        <div class="location-tag">🇳🇱 Amsterdam</div>
+                                        <div class="location-tag">🇪🇸 Madrid</div>
+                                    </div>
+                                </div>
+                                <div class="customer-stats">
+                                    <div class="customer-stat">
+                                        <div class="customer-stat-value">156</div>
+                                        <div class="customer-stat-label">KB Articles</div>
+                                    </div>
+                                    <div class="customer-stat">
+                                        <div class="customer-stat-value">5</div>
+                                        <div class="customer-stat-label">Locations</div>
+                                    </div>
+                                    <div class="customer-stat">
+                                        <div class="customer-stat-value">320</div>
+                                        <div class="customer-stat-label">Users</div>
+                                    </div>
+                                </div>
+                                <div class="customer-actions customer-actions-main">
+                                    <button class="customer-btn" onclick="toggleCustomerDetails('efg')">📍 View Locations</button>
+                                    <button class="customer-btn">View Portal</button>
+                                    <button class="customer-btn">KB Articles</button>
+                                </div>
+                                <div class="customer-actions customer-actions-secondary">
+                                    <button class="customer-btn">✏️ Quick Edit</button>
+                                    <button class="customer-btn">📤 Share</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Detailed Location Views -->
+                            <div class="customer-details" id="abc-details">
+                                <div class="details-header">
+                                    <h3>ABC Ltd - Office Locations & Support Details</h3>
+                                    <button class="details-close" onclick="toggleCustomerDetails('abc')">✕</button>
+                                </div>
+                                <div class="details-note">
+                                    <strong>📊 Pull data from SD</strong> - Information synced from Service Desk system
+                                </div>
+                                <table class="locations-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Office Name</th>
+                                            <th>Office Address</th>
+                                            <th>Main Office Number</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Haskell House *</strong></td>
+                                            <td data-label="Office Address">152 West End Lane London NW6 1SD</td>
+                                            <td data-label="Main Office Number">+44 (0) 20 7433 3333 (Switchboard)</td>
+                                            <td data-label="Notes">TDM Group support Engineer is available on-site daily from 8:30 am - 4:30 pm.</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Cavendish Square *</strong></td>
+                                            <td data-label="Office Address">33 Cavendish Square, London W1G 0PW</td>
+                                            <td data-label="Main Office Number"></td>
+                                            <td data-label="Notes">1 scheduled FE site visit once a week.</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Clive House *</strong></td>
+                                            <td data-label="Office Address">2 Old Brewery Mews Hampstead London NW3 1PZ</td>
+                                            <td data-label="Main Office Number"></td>
+                                            <td data-label="Notes">1 scheduled FE site visit once a week.</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Hamways *</strong></td>
+                                            <td data-label="Office Address">104 Station Road East Oxted Surrey RH8 0QB</td>
+                                            <td data-label="Main Office Number">+44 (0) 18 8373 0890 (Switchboard)</td>
+                                            <td data-label="Notes">1 scheduled FE site visit every two weeks.</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Creswell Model Village</strong></td>
+                                            <td data-label="Office Address">126, Model Village, Creswell, S80 4BW</td>
+                                            <td data-label="Main Office Number"></td>
+                                            <td data-label="Notes">Please check the <a href="#" style="color: #3b82f6;">Creswell Model Village</a> article</td>
+                                        </tr>
+                                        <tr class="international-section">
+                                            <td colspan="4" style="background: #f1f5f9; font-style: italic; padding: 12px; border-top: 2px solid #3b82f6;">
+                                                <strong>International Offices:</strong> The below offices are International ones. If a site visit is needed for an international site, arrange it through SmartSupport's remote hands suppliers.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>New York Office</strong></td>
+                                            <td data-label="Office Address">1450 Broadway, New York, NY 10018, United States</td>
+                                            <td data-label="Main Office Number">+1 (212) 555-0123</td>
+                                            <td data-label="Notes">Remote support only. Local IT contact: john.doe@abcltd.com</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Singapore Hub</strong></td>
+                                            <td data-label="Office Address">1 Raffles Quay, Singapore 048583</td>
+                                            <td data-label="Main Office Number">+65 6789 0123</td>
+                                            <td data-label="Notes">Regional support center. Contact: lisa.chen@abcltd.com</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Frankfurt Office</strong></td>
+                                            <td data-label="Office Address">Zeil 106, 60313 Frankfurt am Main, Germany</td>
+                                            <td data-label="Main Office Number">+49 69 1234 5678</td>
+                                            <td data-label="Notes">EU compliance center. GDPR contact: klaus.weber@abcltd.com</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="customer-details" id="xyz-details">
+                                <div class="details-header">
+                                    <h3>XYZ Corp - Office Locations & Support Details</h3>
+                                    <button class="details-close" onclick="toggleCustomerDetails('xyz')">✕</button>
+                                </div>
+                                <div class="details-note">
+                                    <strong>📊 Pull data from SD</strong> - Information synced from Service Desk system
+                                </div>
+                                <table class="locations-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Office Name</th>
+                                            <th>Office Address</th>
+                                            <th>Main Office Number</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Birmingham HQ</strong></td>
+                                            <td data-label="Office Address">Colmore Plaza, 20 Colmore Circus, Birmingham B4 6AT</td>
+                                            <td data-label="Main Office Number">+44 (0) 121 555 0123</td>
+                                            <td data-label="Notes">Primary support center. On-site engineer available 9 AM - 5 PM weekdays.</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Leeds Office</strong></td>
+                                            <td data-label="Office Address">1 City Square, Leeds LS1 2ES</td>
+                                            <td data-label="Main Office Number">+44 (0) 113 555 0456</td>
+                                            <td data-label="Notes">Weekly site visits. Remote monitoring enabled.</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Bristol Branch</strong></td>
+                                            <td data-label="Office Address">1 Castle Street, Bristol BS1 3AD</td>
+                                            <td data-label="Main Office Number">+44 (0) 117 555 0789</td>
+                                            <td data-label="Notes">Bi-weekly site visits. Backup systems in place.</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Dublin Office</strong></td>
+                                            <td data-label="Office Address">1 Grand Canal Square, Dublin 2, Ireland</td>
+                                            <td data-label="Main Office Number">+353 1 555 0123</td>
+                                            <td data-label="Notes">EU operations. Monthly site visits. Contact: mary.murphy@xyzcorp.ie</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="customer-details" id="efg-details">
+                                <div class="details-header">
+                                    <h3>EFG Solutions - Office Locations & Support Details</h3>
+                                    <button class="details-close" onclick="toggleCustomerDetails('efg')">✕</button>
+                                </div>
+                                <div class="details-note">
+                                    <strong>📊 Pull data from SD</strong> - Information synced from Service Desk system
+                                </div>
+                                <table class="locations-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Office Name</th>
+                                            <th>Office Address</th>
+                                            <th>Main Office Number</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>London HQ</strong></td>
+                                            <td data-label="Office Address">30 Crown Place, London EC2A 4EB</td>
+                                            <td data-label="Main Office Number">+44 (0) 20 7123 4567</td>
+                                            <td data-label="Notes">Primary European operations center. 24/7 support available.</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Paris Office</strong></td>
+                                            <td data-label="Office Address">142 Rue de Rivoli, 75001 Paris, France</td>
+                                            <td data-label="Main Office Number">+33 1 4567 8901</td>
+                                            <td data-label="Notes">French operations. Contact: pierre.martin@efgsolutions.fr</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Munich Office</strong></td>
+                                            <td data-label="Office Address">Maximilianstraße 2, 80539 München, Germany</td>
+                                            <td data-label="Main Office Number">+49 89 1234 5678</td>
+                                            <td data-label="Notes">German operations. GDPR compliance center.</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Amsterdam Office</strong></td>
+                                            <td data-label="Office Address">Zuidas, Gustav Mahlerlaan 1212, Amsterdam</td>
+                                            <td data-label="Main Office Number">+31 20 123 4567</td>
+                                            <td data-label="Notes">Benelux operations. Contact: jan.vanderberg@efgsolutions.nl</td>
+                                        </tr>
+                                        <tr>
+                                            <td data-label="Office Name"><strong>Madrid Office</strong></td>
+                                            <td data-label="Office Address">Paseo de la Castellana 123, 28046 Madrid, Spain</td>
+                                            <td data-label="Main Office Number">+34 91 123 4567</td>
+                                            <td data-label="Notes">Spanish operations. Contact: maria.garcia@efgsolutions.es</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Knowledge Base Management -->
+                <div class="kb-card">
+                    <div class="kb-card-header">
+                        <div class="kb-card-title">
+                            <span class="kb-card-icon">📖</span>
+                            <span>Recent Knowledge Base Activity</span>
+                        </div>
+                        <div class="kb-card-actions">
+                            <button class="kb-btn">Filter</button>
+                            <button class="kb-btn">Export</button>
+                            <button class="kb-btn kb-btn-primary">Create Article</button>
+                        </div>
+                    </div>
+                    <div class="kb-card-content">
+                        <table class="kb-table">
+                            <thead>
+                                <tr>
+                                    <th>Article & Customer</th>
+                                    <th>Locations</th>
+                                    <th>Category</th>
+                                    <th>Usage</th>
+                                    <th>Last Updated</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="kb-article-title">VPN Configuration Guide - ABC Ltd</div>
+                                        <div class="kb-article-meta">Multi-site VPN setup for global offices</div>
+                                    </td>
+                                    <td>
+                                        <div class="kb-location-tags">
+                                            <span class="kb-location-tag">London</span>
+                                            <span class="kb-location-tag">New York</span>
+                                            <span class="kb-location-tag">Singapore</span>
+                                            <span class="kb-location-tag">+3 more</span>
+                                        </div>
+                                    </td>
+                                    <td>Network Security</td>
+                                    <td class="kb-usage-stats">
+                                        <div class="kb-usage-number">247</div>
+                                        <div class="kb-usage-period">views this month</div>
+                                    </td>
+                                    <td>
+                                        <div>Dec 12, 2024</div>
+                                        <div class="kb-article-meta">Sarah Johnson</div>
+                                    </td>
+                                    <td>
+                                        <div class="kb-actions">
+                                            <button class="kb-action-btn" title="View">👁️</button>
+                                            <button class="kb-action-btn" title="Edit">✏️</button>
+                                            <button class="kb-action-btn" title="Duplicate">📋</button>
+                                            <button class="kb-action-btn" title="Analytics">📊</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="kb-article-title">Office 365 Deployment - XYZ Corp</div>
+                                        <div class="kb-article-meta">Regional rollout procedures for UK offices</div>
+                                    </td>
+                                    <td>
+                                        <div class="kb-location-tags">
+                                            <span class="kb-location-tag">Birmingham</span>
+                                            <span class="kb-location-tag">Leeds</span>
+                                            <span class="kb-location-tag">Bristol</span>
+                                            <span class="kb-location-tag">Dublin</span>
+                                        </div>
+                                    </td>
+                                    <td>Productivity Suite</td>
+                                    <td class="kb-usage-stats">
+                                        <div class="kb-usage-number">89</div>
+                                        <div class="kb-usage-period">views this month</div>
+                                    </td>
+                                    <td>
+                                        <div>Dec 10, 2024</div>
+                                        <div class="kb-article-meta">Mike Chen</div>
+                                    </td>
+                                    <td>
+                                        <div class="kb-actions">
+                                            <button class="kb-action-btn" title="View">👁️</button>
+                                            <button class="kb-action-btn" title="Version History">🕒</button>
+                                            <button class="kb-action-btn" title="Localize">🌐</button>
+                                            <button class="kb-action-btn" title="Share">📤</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="kb-article-title">Security Standards - EFG Solutions</div>
+                                        <div class="kb-article-meta">European compliance requirements</div>
+                                    </td>
+                                    <td>
+                                        <div class="kb-location-tags">
+                                            <span class="kb-location-tag">All EU</span>
+                                            <span class="kb-location-tag">GDPR</span>
+                                        </div>
+                                    </td>
+                                    <td>Compliance</td>
+                                    <td class="kb-usage-stats">
+                                        <div class="kb-usage-number">156</div>
+                                        <div class="kb-usage-period">views this month</div>
+                                    </td>
+                                    <td>
+                                        <div>Dec 8, 2024</div>
+                                        <div class="kb-article-meta">Alex Brown</div>
+                                    </td>
+                                    <td>
+                                        <div class="kb-actions">
+                                            <button class="kb-action-btn" title="View">👁️</button>
+                                            <button class="kb-action-btn" title="Translate">🌍</button>
+                                            <button class="kb-action-btn" title="Update">🔄</button>
+                                            <button class="kb-action-btn" title="Audit">✅</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar">
+                <!-- AI Knowledge Assistant -->
+                <div class="ai-assistant-card">
+                    <div class="ai-pattern"></div>
+                    <div class="ai-content">
+                        <div class="ai-header">
+                            <div class="ai-icon">🤖</div>
+                            <div class="ai-title">AI Knowledge Assistant</div>
+                        </div>
+                        <div class="ai-insights">
+                            <div class="ai-insight">
+                                <div class="insight-title">📊 Usage Pattern</div>
+                                <div class="insight-text">VPN articles for ABC Ltd are accessed 40% more from Singapore office. Consider creating region-specific versions.</div>
+                            </div>
+                            <div class="ai-insight">
+                                <div class="insight-title">🔍 Content Gap</div>
+                                <div class="insight-text">Missing documentation for Office 365 multi-geo features across EFG's European locations.</div>
+                            </div>
+                            <div class="ai-insight">
+                                <div class="insight-title">⚡ Quick Win</div>
+                                <div class="insight-text">Update XYZ Corp backup procedures - 3 locations still referencing old system.</div>
+                            </div>
+                        </div>
+                        <button class="ai-chat-btn">💬 Ask Knowledge AI</button>
+                    </div>
+                </div>
+                <!-- Quick Actions -->
+                <div class="kb-card">
+                    <div class="kb-card-header">
+                        <div class="kb-card-title">
+                            <span class="kb-card-icon">⚡</span>
+                            <span>Quick Actions</span>
+                        </div>
+                    </div>
+                    <div class="kb-card-content">
+                        <div class="quick-actions-grid">
+                            <a href="#" class="quick-action">
+                                <span class="quick-action-icon">📝</span>
+                                <span class="quick-action-text">Create KB Article</span>
+                            </a>
+                            <a href="#" class="quick-action">
+                                <span class="quick-action-icon">🌍</span>
+                                <span class="quick-action-text">Location Manager</span>
+                            </a>
+                            <a href="#" class="quick-action">
+                                <span class="quick-action-icon">📊</span>
+                                <span class="quick-action-text">KB Analytics</span>
+                            </a>
+                            <a href="#" class="quick-action">
+                                <span class="quick-action-icon">🔄</span>
+                                <span class="quick-action-text">Sync Content</span>
+                            </a>
+                            <a href="#" class="quick-action">
+                                <span class="quick-action-icon">🏢</span>
+                                <span class="quick-action-text">Customer Portal</span>
+                            </a>
+                            <a href="#" class="quick-action">
+                                <span class="quick-action-icon">⚙️</span>
+                                <span class="quick-action-text">KB Settings</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Optionally, What's New/Tips card here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="homepage.js"></script>
+</body>
+</html>
